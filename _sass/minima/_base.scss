@@ -94,7 +94,9 @@ li {
  * Headings
  */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: $base-font-weight;
+  font: $header-font-weight #{$header-font-size}/#{$header-line-height} $header-font-family;
+  color: $text-color;
+  font-weight: $header-font-weight;
 }
 
 
