@@ -94,6 +94,7 @@ const ctx2 = document.getElementById("circle-of-life-good").getContext("2d")
   fulfillment2.set('Репутация', 8)
   fulfillment2.set('Отношения с собой', 8)
 
+let angle = 0
   const segmentRad2 = toRadians(360/fulfillment2.size)
 
     function draw2() {
@@ -110,5 +111,4 @@ const ctx2 = document.getElementById("circle-of-life-good").getContext("2d")
         }
     }
     draw2()
-    setInterval(draw2, 500)
 </script>
