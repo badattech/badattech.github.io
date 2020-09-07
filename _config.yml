@@ -2,5 +2,4 @@ title: Alterforia
 description: >-
   Alterforia — персональный блог разработчика, музыканта и человека
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://alterfo.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-github_username:  alterfo
+url: "https://alterfo.github.io"
