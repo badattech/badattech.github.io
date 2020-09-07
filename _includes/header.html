@@ -15,115 +15,110 @@
     </sup></h1>
 </header>
 <script>
-  (function () {
-    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-      window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-    window.requestAnimationFrame = requestAnimationFrame;
-  })();
 
-  (function () {
+  const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
 
-    let points
-    let animateHeader = true
-    let largeHeader = document.getElementById('large-header');
-    let canvas = document.getElementById('canvas');
-    let ctx = canvas.getContext('2d')
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    // Main
-    initHeader();
-    addListeners();
+  const cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame
 
-    function Particle() {
-      this.location = {
-        x: Math.random() * width,
-        y: Math.random() * height
-      }
-      this.radius = 10;
-      this.speed = Math.random();
-      this.angle = Math.random() * 360;
+  let points
+  let particles
+  let numOfParticles
+  let animateHeader = true
+  let largeHeader = document.getElementById('large-header')
+  let canvas = document.getElementById('canvas')
+  let ctx = canvas.getContext('2d')
+  let width
+  let height
+  let raf
+  // Main
+  initHeader()
+  addListeners()
 
-      const r = Math.round(Math.random() * 255);
-      const g = Math.round(Math.random() * 255);
-      const b = Math.round(Math.random() * 255);
-      const a = Math.random() * 0.1;
-      this.rgba = "rgba(" + r + ", " + g + "," + b + ", " + a + ")";
+  function Particle() {
+    this.location = {
+      x: Math.random() * width,
+      y: Math.random() * height
+    }
+    this.speed = Math.random()
+    this.angle = Math.random() * 360
 
+    const r = Math.round(Math.random() * 255)
+    const g = Math.round(Math.random() * 255)
+    const b = Math.round(Math.random() * 255)
+    const a = Math.random() * 0.1
+    this.rgba = "rgba(" + r + ", " + g + "," + b + ", " + a + ")"
+  }
+
+  function initHeader() {
+    cancelAnimationFrame(raf)
+    width = window.innerWidth
+    height = window.innerHeight - 100
+    largeHeader.style.height = height + 'px'
+    largeHeader.style.width = width + 'px'
+
+    canvas.width = width
+    canvas.height = height
+
+    particles = []
+
+    numOfParticles = width / 10
+
+    for (var i = 0; i < numOfParticles; i++) {
+      particles.push(new Particle())
     }
 
-    function initHeader() {
-      largeHeader.style.height = height - 200 + 'px';
+    function draw() {
+      if (animateHeader) {
+        ctx.globalCompositeOperation = "source-over"
+        ctx.fillStyle = "rgba(1, 1, 1, 0.2)"
+        ctx.fillRect(0, 0, width, height)
 
-      canvas.width = width;
-      canvas.height = height;
+        ctx.globalCompositeOperation = "lighter"
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i]
+          ctx.beginPath()
 
-      const particles = [];
+          for (let n = 0; n < particles.length; n++) {
+            const p2 = particles[n]
+            const yd = p2.location.y - p.location.y
+            const xd = p2.location.x - p.location.x
+            const distance = Math.sqrt(xd * xd + yd * yd)
 
-      for (var i = 0; i < 100; i++) {
-        particles.push(new Particle());
-      }
-
-
-      function draw() {
-        if (animateHeader) {
-          ctx.globalCompositeOperation = "source-over";
-          ctx.fillStyle = "rgba(1, 1, 1, 0.2)";
-          ctx.fillRect(0, 0, width, height);
-          ctx.globalCompositeOperation = "lighter";
-          for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            ctx.beginPath();
-
-            for (let n = 0; n < particles.length; n++) {
-              const p2 = particles[n];
-              const yd = p2.location.y - p.location.y;
-              const xd = p2.location.x - p.location.x;
-              const distance = Math.sqrt(xd * xd + yd * yd);
-
-              if (distance < 140) {
-                ctx.lineWidth = 1;
-                ctx.moveTo(p.location.x, p.location.y);
-                ctx.lineTo(p2.location.x, p2.location.y);
-              }
+            if (distance < 140) {
+              ctx.lineWidth = 1
+              ctx.moveTo(p.location.x, p.location.y)
+              ctx.lineTo(p2.location.x, p2.location.y)
             }
-            ctx.strokeStyle = p.rgba;
-            ctx.stroke();
-
-            p.location.x = p.location.x + p.speed * Math.cos(p.angle * Math.PI / 180);
-            p.location.y = p.location.y + p.speed * Math.sin(p.angle * Math.PI / 180);
-
-            if (p.location.x < 0) p.location.x = width + 50;
-            if (p.location.x > width + 50) p.location.x = 0;
-            if (p.location.y < 0) p.location.y = height + 50;
-            if (p.location.y > height + 50) p.location.y = 0;
-
           }
+          ctx.strokeStyle = p.rgba
+          ctx.stroke()
+
+          p.location.x = p.location.x + p.speed * Math.cos(p.angle * Math.PI / 180)
+          p.location.y = p.location.y + p.speed * Math.sin(p.angle * Math.PI / 180)
+
+          if (p.location.x < 0) p.location.x = width + 50
+          if (p.location.x > width + 50) p.location.x = 0
+          if (p.location.y < 0) p.location.y = height + 50
+          if (p.location.y > height + 50) p.location.y = 0
+
         }
-        requestAnimationFrame(draw);
-
       }
+      raf = requestAnimationFrame(draw)
 
-      //setInterval(draw, 3);
-      requestAnimationFrame(draw);
     }
 
-    // Event handling
-    function addListeners() {
-      window.addEventListener('scroll', scrollCheck);
-      window.addEventListener('resize', resize);
-    }
-    function scrollCheck() {
-      if (document.body.scrollTop > height - 400) animateHeader = false;
-      else animateHeader = true;
-    }
+    //setInterval(draw, 3)
+    raf = requestAnimationFrame(draw)
+  }
 
-    function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      largeHeader.style.height = height + 'px';
-      canvas.width = width;
-      canvas.height = height;
-    }
+  // Event handling
+  function addListeners() {
+    window.addEventListener('scroll', scrollCheck)
+    window.addEventListener('resize', initHeader)
+  }
+  function scrollCheck() {
+    animateHeader = document.documentElement.scrollTop < height / 2
+  }
 
-  })();
 </script>
