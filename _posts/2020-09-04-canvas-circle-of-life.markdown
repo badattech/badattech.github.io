@@ -19,11 +19,11 @@ title: Круг жизни
 
 <canvas id="circle-of-life" width="360" height="360"></canvas>
 <script>
-    const ctx = document.getElementById("circle-of-life").getContext("2d")
-    ctx.imageSmoothingEnabled = true
-    ctx.shadowBlur = 2
-    ctx.shadowOffsetX = 0
-    ctx.shadowOffsetY = 0
+    const ctx3 = document.getElementById("circle-of-life").getContext("2d")
+    ctx3.imageSmoothingEnabled = true
+    ctx3.shadowBlur = 2
+    ctx3.shadowOffsetX = 0
+    ctx3.shadowOffsetY = 0
 
   const tick = 20
   const cx = 180
@@ -41,17 +41,17 @@ title: Круг жизни
 
   const segmentRad = toRadians(360/fulfillment.size)
 
-    function draw() {
+    function draw3() {
         for (let i = 0; i < fulfillment.size; i++) {
-            ctx.fillStyle = getRandomColor()
-            ctx.shadowColor = ctx.fillStyle
+            ctx3.fillStyle = getRandomColor()
+            ctx3.shadowColor = ctx3.fillStyle
 
-            ctx.beginPath()
-            ctx.moveTo(cx,cy)
-            ctx.arc(cx, cy, tick * [...fulfillment.values()][i], i * segmentRad, (i + 1) * segmentRad)
-            ctx.lineTo(cx,cy)
-            ctx.closePath()
-            ctx.fill()
+            ctx3.beginPath()
+            ctx3.moveTo(cx,cy)
+            ctx3.arc(cx, cy, tick * [...fulfillment.values()][i], i * segmentRad, (i + 1) * segmentRad)
+            ctx3.lineTo(cx,cy)
+            ctx3.closePath()
+            ctx3.fill()
         }
     }
 
@@ -66,7 +66,7 @@ title: Круг жизни
         const b = Math.round(Math.random() * 255);
         return "rgba(" + r + ", " + g + "," + b + ")";
     }
-    draw()
+    draw3()
 </script>
 
 
