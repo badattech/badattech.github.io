@@ -1,23 +1,20 @@
 <template>
   <header class="site-header" id="large-header">
-    <div 
-      :class="`absolute f6 right-1 ${animateHeader ? 'top-1' : 'top-2'} white`">
-      <a href="javascript:void" 
-      v-on:click="toggleAnimation"
-      class="white">
-        {{ animateHeader ? 'Выкл!' : 'Вкл!' }}
-      </a>
+    <div :class="`absolute f6 right-1 ${animateHeader ? 'top-1' : 'top-2'} white`">
+      <a
+        href="javascript:void"
+        v-on:click="toggleAnimation"
+        class="white"
+      >{{ animateHeader ? 'Выкл!' : 'Вкл!' }}</a>
     </div>
     <canvas id="canvas"></canvas>
     <div class="f1 main-title">
-      
       <a class="site-title" href>Alterforia</a>
       <sup class="f6">
         <a class="page-link" href="/about">Что это?</a>
       </sup>
       <Socials />
     </div>
-    
   </header>
 </template>
 
@@ -62,7 +59,7 @@
   }
 
   a:hover {
-    color: pink
+    color: pink;
   }
 }
 </style>
@@ -75,21 +72,18 @@ export default {
   components: {
     Socials,
   },
-  data: function() {
+  data: function () {
     return {
       animateHeader: true,
-    }
+    };
   },
   methods: {
-    toggleAnimation: function() {
-      this.animateHeader = !this.animateHeader
+    toggleAnimation: function () {
+      this.animateHeader = !this.animateHeader;
     },
-    initHeader: function() {
-
-    }
   },
   mounted() {
-    const self = this
+    const self = this;
 
     const requestAnimationFrame =
       window.requestAnimationFrame ||
@@ -199,7 +193,8 @@ export default {
       window.addEventListener("resize", initHeader);
     }
     function scrollCheck() {
-      self.animateHeader = self.animateHeader && document.documentElement.scrollTop < height / 2;
+      self.animateHeader =
+        self.animateHeader && document.documentElement.scrollTop < height / 2;
     }
   },
 };
