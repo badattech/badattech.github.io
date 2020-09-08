@@ -70,7 +70,7 @@ export default {
       const r = Math.round(Math.random() * 255);
       const g = Math.round(Math.random() * 255);
       const b = Math.round(Math.random() * 255);
-      const a = Math.random() * 0.1;
+      const a = Math.random() * 0.4;
       this.rgba = "rgba(" + r + ", " + g + "," + b + ", " + a + ")";
     }
 
@@ -92,13 +92,15 @@ export default {
         particles.push(new Particle());
       }
 
-      function draw() {
+      function draw(secondsFromStart) {
         if (self.animateHeader) {
-          ctx.globalCompositeOperation = "source-over";
-          ctx.fillStyle = "rgba(1, 1, 1, 0.2)";
-          ctx.fillRect(0, 0, width, height);
+          // ctx.globalCompositeOperation = "source-over";
+          // ctx.fillStyle = "rgba(1, 1, 1, 0.2)";
+          canvas.width = width
+          // ctx.fillRect(0, 0, width, height);
 
-          ctx.globalCompositeOperation = "lighter";
+          ctx.globalCompositeOperation = "lighten";
+          
           for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
             ctx.beginPath();
@@ -128,6 +130,9 @@ export default {
             if (p.location.y < 0) p.location.y = height + 50;
             if (p.location.y > height + 50) p.location.y = 0;
           }
+          if (secondsFromStart < 2000) {
+            self.animateHeader = false;
+          }
         }
         raf = requestAnimationFrame(draw);
       }
@@ -153,7 +158,7 @@ export default {
 .site-header {
   position: relative;
   width: 100%;
-  background: #333;
+  background: #111;
   overflow: hidden;
   background-size: cover;
   background-position: center center;
