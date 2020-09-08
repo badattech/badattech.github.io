@@ -2,8 +2,8 @@
   <header class="site-header" id="large-header">
     <div :class="`absolute f6 right-1 ${animateHeader ? 'top-1' : 'top-2'} white`">
       <a
-        href="javascript:void"
-        v-on:click="toggleAnimation"
+        href="javascript:void(0)"
+        @click="animateHeader = !animateHeader"
         class="white"
       >{{ animateHeader ? 'Выкл!' : 'Вкл!' }}</a>
     </div>
@@ -18,52 +18,6 @@
   </header>
 </template>
 
-<style lang="stylus">
-.site-header {
-  position: relative;
-  width: 100%;
-  background: #333;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center center;
-  z-index: 1;
-}
-
-.main-title {
-  letter-spacing: -1px;
-  line-height: 1.75;
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate3d(-50%, -50%, 0);
-  transform: translate3d(-50%, -50%, 0);
-
-  sup {
-    top: -2em;
-
-    a {
-      color: pink;
-
-      &:hover {
-        color: #fdfdfd;
-      }
-    }
-  }
-
-  a {
-    color: #fdfdfd;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: pink;
-  }
-}
-</style>
-
 <script>
 import Socials from "./Socials";
 
@@ -76,11 +30,6 @@ export default {
     return {
       animateHeader: true,
     };
-  },
-  methods: {
-    toggleAnimation: function () {
-      this.animateHeader = !this.animateHeader;
-    },
   },
   mounted() {
     const self = this;
@@ -199,3 +148,50 @@ export default {
   },
 };
 </script>
+
+<style lang="stylus">
+.site-header {
+  position: relative;
+  width: 100%;
+  background: #333;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+  z-index: 1;
+}
+
+.main-title {
+  letter-spacing: -1px;
+  line-height: 1.75;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+
+  sup {
+    top: -2em;
+
+    a {
+      color: pink;
+
+      &:hover {
+        color: #fdfdfd;
+      }
+    }
+  }
+
+  a {
+    color: #fdfdfd;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: pink;
+  }
+}
+</style>
+
