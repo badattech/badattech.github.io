@@ -42,6 +42,10 @@
   sup {
     @include relative-font-size(0.625);
   }
+
+  .social-media-list {
+    margin-right: 40px
+  }
 }
 
 
