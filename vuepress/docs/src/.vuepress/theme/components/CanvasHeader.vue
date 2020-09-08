@@ -70,7 +70,9 @@ export default {
     let numOfParticles;
     let animateHeader = true;
     let largeHeader = document.getElementById("large-header");
-    let canvas = document.getElementById("canvas");
+    let canvas = ('OffscreenCanvas' in window) ? 
+      document.getElementById("canvas").transferControlToOffscreen() :
+      document.getElementById("canvas")
     let ctx = canvas.getContext("2d");
     let width;
     let height;
