@@ -1,21 +1,27 @@
 <template>
   <header class="site-header" id="large-header">
+    <div 
+      :class="`absolute f6 right-1 ${animateHeader ? 'top-1' : 'top-2'} white`">
+      <a href="javascript:void" 
+      v-on:click="toggleAnimation"
+      class="white">
+        {{ animateHeader ? 'Выкл!' : 'Вкл!' }}
+      </a>
+    </div>
     <canvas id="canvas"></canvas>
     <div class="f1 main-title">
+      
       <a class="site-title" href>Alterforia</a>
       <sup class="f6">
         <a class="page-link" href="/about">Что это?</a>
       </sup>
-      <div class="social-media-list">
-        <a href title>
-          <i></i>
-        </a>
-      </div>
+      <Socials />
     </div>
+    
   </header>
 </template>
 
-<style lang='stylus'>
+<style lang="stylus">
 .site-header {
   position: relative;
   width: 100%;
@@ -28,6 +34,7 @@
 
 .main-title {
   letter-spacing: -1px;
+  line-height: 1.75;
   position: absolute;
   margin: 0;
   padding: 0;
@@ -37,25 +44,53 @@
   -webkit-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
 
-  a.site-title {
-    color: #fdfdfd;
+  sup {
+    top: -2em;
+
+    a {
+      color: pink;
+
+      &:hover {
+        color: #fdfdfd;
+      }
+    }
   }
 
-  a:hover {
+  a {
     color: #fdfdfd;
     text-decoration: none;
   }
 
-  .social-media-list {
-    margin-right: 40px;
+  a:hover {
+    color: pink
   }
 }
 </style>
 
 <script>
+import Socials from "./Socials";
+
 export default {
   name: "canvas-header",
+  components: {
+    Socials,
+  },
+  data: function() {
+    return {
+      animateHeader: true,
+    }
+  },
+  methods: {
+    toggleAnimation: function() {
+      this.animateHeader = !this.animateHeader
+    },
+    initHeader: function() {
+
+    }
+  },
   mounted() {
+    const self = this
+
     const requestAnimationFrame =
       window.requestAnimationFrame ||
       window.mozRequestAnimationFrame ||
@@ -68,11 +103,11 @@ export default {
     let points;
     let particles;
     let numOfParticles;
-    let animateHeader = true;
     let largeHeader = document.getElementById("large-header");
-    let canvas = ('OffscreenCanvas' in window) ? 
-      document.getElementById("canvas").transferControlToOffscreen() :
-      document.getElementById("canvas")
+    let canvas =
+      "OffscreenCanvas" in window
+        ? document.getElementById("canvas").transferControlToOffscreen()
+        : document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
     let width;
     let height;
@@ -115,7 +150,7 @@ export default {
       }
 
       function draw() {
-        if (animateHeader) {
+        if (self.animateHeader) {
           ctx.globalCompositeOperation = "source-over";
           ctx.fillStyle = "rgba(1, 1, 1, 0.2)";
           ctx.fillRect(0, 0, width, height);
@@ -164,7 +199,7 @@ export default {
       window.addEventListener("resize", initHeader);
     }
     function scrollCheck() {
-      animateHeader = document.documentElement.scrollTop < height / 2;
+      self.animateHeader = self.animateHeader && document.documentElement.scrollTop < height / 2;
     }
   },
 };
