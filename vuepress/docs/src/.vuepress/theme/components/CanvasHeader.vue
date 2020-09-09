@@ -9,7 +9,7 @@
     </div>
     <canvas id="canvas"></canvas>
     <div class="f1 main-title">
-      <a class="site-title" href>Alterforia</a>
+      <a class="site-title" href="/">Alterforia</a>
       <sup class="f6">
         <a class="page-link" href="/about">Что это?</a>
       </sup>
