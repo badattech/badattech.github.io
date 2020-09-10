@@ -3,7 +3,7 @@
     <div class="socials">
       <SvgSprite />
       <a v-for="{username, href, title, icon} of socials" :href="href + username" :title="title">
-        <svg class="icon dib v-top">
+        <svg class="icon">
           <use :xlink:href="`#${icon}`" />
         </svg>
       </a>
@@ -16,6 +16,8 @@
   width: 0.75em;
   height: 0.75em;
   margin-right: 1em;
+  display inline-block;
+  vertical-align: top;
 }
 
 :nth-child(2 of .socials a) .icon {

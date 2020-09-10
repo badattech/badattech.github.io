@@ -1,16 +1,17 @@
 <template>
   <header class="site-header" id="large-header">
-    <div :class="`absolute f6 right-1 ${animateHeader ? 'top-1' : 'top-2'} white`">
+    <canvas id="canvas"></canvas>
+
+    <div :class="`animation-toggler ${animateHeader ? 'top-1' : 'top-2'}`">
       <a
         href="javascript:void(0)"
         @click="animateHeader = !animateHeader"
-        class="white"
       >{{ animateHeader ? 'Выкл!' : 'Вкл!' }}</a>
     </div>
-    <canvas id="canvas"></canvas>
-    <div class="f1 main-title">
+
+    <div class="main-title">
       <a class="site-title" href="/">Alterforia</a>
-      <sup class="f6">
+      <sup>
         <a class="page-link" href="/about">Что это?</a>
       </sup>
       <Socials />
@@ -70,7 +71,7 @@ export default {
       const r = Math.round(Math.random() * 255);
       const g = Math.round(Math.random() * 255);
       const b = Math.round(Math.random() * 255);
-      const a = Math.random() * 0.4;
+      const a = Math.random() * 0.5;
       this.rgba = "rgba(" + r + ", " + g + "," + b + ", " + a + ")";
     }
 
@@ -96,11 +97,11 @@ export default {
         if (self.animateHeader) {
           // ctx.globalCompositeOperation = "source-over";
           // ctx.fillStyle = "rgba(1, 1, 1, 0.2)";
-          canvas.width = width
+          canvas.width = width;
           // ctx.fillRect(0, 0, width, height);
 
-          ctx.globalCompositeOperation = "lighten";
-          
+          ctx.globalCompositeOperation = "lighter";
+
           for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
             ctx.beginPath();
@@ -163,39 +164,59 @@ export default {
   background-size: cover;
   background-position: center center;
   z-index: 1;
-}
 
-.main-title {
-  letter-spacing: -1px;
-  line-height: 1.75;
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate3d(-50%, -50%, 0);
-  transform: translate3d(-50%, -50%, 0);
-
-  sup {
-    top: -2em;
+  .animation-toggler {
+    position: absolute;
+    right: 1em;
 
     a {
-      color: pink;
+      color: white;
+      font-size: 0.825em;
+    }
 
-      &:hover {
-        color: #fdfdfd;
-      }
+    &.top-1 {
+      top: 1em;
+    }
+
+    &.top-2 {
+      top: 2em;
     }
   }
 
-  a {
-    color: #fdfdfd;
-    text-decoration: none;
-  }
+  .main-title {
+    font-size: 3em;
+    letter-spacing: -1px;
+    line-height: 1.75;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
 
-  a:hover {
-    color: pink;
+    sup {
+      top: -2.25em;
+      font-size: 0.25em;
+
+      a {
+        color: pink;
+
+        &:hover {
+          color: #fdfdfd;
+        }
+      }
+    }
+
+    a {
+      color: #fdfdfd;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: pink;
+    }
   }
 }
 </style>
