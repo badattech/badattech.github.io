@@ -1,5 +1,5 @@
 {
-  "name": "Alterforia",
+  "name": "alterforia",
   "version": "0.0.1",
   "description": "Персональный блог разработчика, музыканта, человека.",
   "main": "index.js",
@@ -9,12 +9,14 @@
   },
   "repository": "https://github.com/alterfo/alterfo.github.io/Alterforia",
   "scripts": {
-    "dev": "vuepress dev src",
-    "build": "vuepress build src"
+    "dev": "vuepress dev blog",
+    "build": "vuepress build blog"
   },
   "license": "MIT",
   "devDependencies": {
+    "@vuepress/plugin-blog": "^1.9.2",
     "@vuepress/plugin-google-analytics": "^1.5.4",
+    "@vuepress/theme-blog": "^2.3.2",
     "vuepress": "^1.5.3"
   }
 }

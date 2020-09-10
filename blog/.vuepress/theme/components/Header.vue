@@ -10,7 +10,7 @@
     </div>
 
     <div class="main-title">
-      <a class="site-title" href="/">Alterforia</a>
+      <router-link to="/" class="site-title">{{ $site.title }}</router-link>
       <sup>
         <a class="page-link" href="/about">Что это?</a>
       </sup>
@@ -23,7 +23,6 @@
 import Socials from "./Socials";
 
 export default {
-  name: "canvas-header",
   components: {
     Socials,
   },
@@ -78,7 +77,7 @@ export default {
     function initHeader() {
       cancelAnimationFrame(raf);
       width = window.innerWidth;
-      height = window.innerHeight - 100;
+      height = window.innerWidth / (self.$page.path === "/" ? 2 : 4);
       largeHeader.style.height = height + "px";
       largeHeader.style.width = width + "px";
 
@@ -87,7 +86,7 @@ export default {
 
       particles = [];
 
-      numOfParticles = width / 10;
+      numOfParticles = height / 5;
 
       for (var i = 0; i < numOfParticles; i++) {
         particles.push(new Particle());
@@ -186,7 +185,7 @@ export default {
   }
 
   .main-title {
-    font-size: 3em;
+    font-size: 3rem;
     letter-spacing: -1px;
     line-height: 1.75;
     position: absolute;
