@@ -170,8 +170,10 @@ export default {
     right: 1em;
 
     a {
-      color: white;
+      color: yellow;
       font-size: 0.825em;
+      text-decoration: none;
+      border-bottom: 1px dotted pink;
     }
 
     &.top-1 {
