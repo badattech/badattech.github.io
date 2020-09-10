@@ -11,10 +11,7 @@ module.exports = {
 
   themeConfig: {
     footer: {
-      copyright: {
-        link: '/',
-        text: 'Alterforia - персональный блог разработчика, музыканта и человека.'
-      }
+      text: 'Alterforia - персональный блог разработчика, музыканта и человека.'
     }
   },
 

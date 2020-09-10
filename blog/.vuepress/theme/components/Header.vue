@@ -9,10 +9,12 @@
       >{{ animateHeader ? 'Выкл!' : 'Вкл!' }}</a>
     </div>
 
-    <div class="main-title">
+    <div class="page-title" v-if="$page.title">{{ $page.title }}</div>
+
+    <div v-else class="main-title">
       <router-link to="/" class="site-title">{{ $site.title }}</router-link>
       <sup>
-        <a class="page-link" href="/about">Что это?</a>
+        <router-link to="/about" class="page-link">Что это?</router-link>
       </sup>
       <Socials />
     </div>
@@ -28,8 +30,13 @@ export default {
   },
   data: function () {
     return {
-      animateHeader: true,
+      animateHeader: false,
     };
+  },
+  computed: {
+    title() {
+      return this.$page.title;
+    },
   },
   mounted() {
     const self = this;
@@ -74,6 +81,45 @@ export default {
       this.rgba = "rgba(" + r + ", " + g + "," + b + ", " + a + ")";
     }
 
+    function drawConnections() {
+      // ctx.globalCompositeOperation = "source-over";
+      // ctx.fillStyle = "rgba(1, 1, 1, 0.2)";
+      canvas.width = width;
+      // ctx.fillRect(0, 0, width, height);
+
+      ctx.globalCompositeOperation = "lighter";
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        ctx.beginPath();
+
+        for (let n = 0; n < particles.length; n++) {
+          const p2 = particles[n];
+          const yd = p2.location.y - p.location.y;
+          const xd = p2.location.x - p.location.x;
+          const distance = Math.sqrt(xd * xd + yd * yd);
+
+          if (distance < 140) {
+            ctx.lineWidth = 1;
+            ctx.moveTo(p.location.x, p.location.y);
+            ctx.lineTo(p2.location.x, p2.location.y);
+          }
+        }
+        ctx.strokeStyle = p.rgba;
+        ctx.stroke();
+
+        p.location.x =
+          p.location.x + p.speed * Math.cos((p.angle * Math.PI) / 180);
+        p.location.y =
+          p.location.y + p.speed * Math.sin((p.angle * Math.PI) / 180);
+
+        if (p.location.x < 0) p.location.x = width + 50;
+        if (p.location.x > width + 50) p.location.x = 0;
+        if (p.location.y < 0) p.location.y = height + 50;
+        if (p.location.y > height + 50) p.location.y = 0;
+      }
+    }
+
     function initHeader() {
       cancelAnimationFrame(raf);
       width = window.innerWidth;
@@ -91,48 +137,11 @@ export default {
       for (var i = 0; i < numOfParticles; i++) {
         particles.push(new Particle());
       }
+      drawConnections()
 
       function draw(secondsFromStart) {
         if (self.animateHeader) {
-          // ctx.globalCompositeOperation = "source-over";
-          // ctx.fillStyle = "rgba(1, 1, 1, 0.2)";
-          canvas.width = width;
-          // ctx.fillRect(0, 0, width, height);
-
-          ctx.globalCompositeOperation = "lighter";
-
-          for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            ctx.beginPath();
-
-            for (let n = 0; n < particles.length; n++) {
-              const p2 = particles[n];
-              const yd = p2.location.y - p.location.y;
-              const xd = p2.location.x - p.location.x;
-              const distance = Math.sqrt(xd * xd + yd * yd);
-
-              if (distance < 140) {
-                ctx.lineWidth = 1;
-                ctx.moveTo(p.location.x, p.location.y);
-                ctx.lineTo(p2.location.x, p2.location.y);
-              }
-            }
-            ctx.strokeStyle = p.rgba;
-            ctx.stroke();
-
-            p.location.x =
-              p.location.x + p.speed * Math.cos((p.angle * Math.PI) / 180);
-            p.location.y =
-              p.location.y + p.speed * Math.sin((p.angle * Math.PI) / 180);
-
-            if (p.location.x < 0) p.location.x = width + 50;
-            if (p.location.x > width + 50) p.location.x = 0;
-            if (p.location.y < 0) p.location.y = height + 50;
-            if (p.location.y > height + 50) p.location.y = 0;
-          }
-          if (secondsFromStart < 2000) {
-            self.animateHeader = false;
-          }
+          drawConnections();
         }
         raf = requestAnimationFrame(draw);
       }
@@ -182,6 +191,20 @@ export default {
     &.top-2 {
       top: 2em;
     }
+  }
+
+  .page-title {
+    color: white;
+    font-size: 2rem;
+    letter-spacing: -1px;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
   }
 
   .main-title {
