@@ -208,7 +208,7 @@ export default {
   }
 
   .main-title {
-    font-size: 3rem;
+    font-size: 5vw;
     letter-spacing: -1px;
     line-height: 1.75;
     position: absolute;

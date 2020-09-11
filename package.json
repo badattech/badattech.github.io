@@ -10,7 +10,8 @@
   "repository": "https://github.com/alterfo/alterfo.github.io/Alterforia",
   "scripts": {
     "dev": "vuepress dev blog",
-    "build": "vuepress build blog"
+    "build": "vuepress build blog",
+    "deploy": "./deploy.sh"
   },
   "license": "MIT",
   "devDependencies": {
