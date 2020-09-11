@@ -195,7 +195,7 @@ export default {
 
   .page-title {
     color: white;
-    font-size: 2rem;
+    font-size: calc(1.3em + 3vw);
     letter-spacing: -1px;
     position: absolute;
     margin: 0;
