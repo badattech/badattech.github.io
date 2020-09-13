@@ -8,6 +8,9 @@ tags:
 - самоанализ
 ---
 
+> Reflect (verb): to prevent passage of and cause to change direction
+> &mdash; [Marriam-Webster dictionary](https://www.merriam-webster.com/dictionary/reflect)
+
 Умение смотреть назад, на самого себя и на содержание и функции своего сознания - наиважнейший навык в карьерном росте. Это называется рефлексией.
 
 Анализируя своё прошлое, можно понять что на самом деле важно и каким образом формируются цели, решения, желания.
