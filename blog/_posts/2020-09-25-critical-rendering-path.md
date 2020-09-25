@@ -1,6 +1,6 @@
 ---
 title: Critical Rendering Path
-date: 25-09-2020
+date: 2020-09-25
 ---
 Critical Rendering Path это последовательность шагов по превращению браузером HTML, CSS и JavaScript в пиксели на экране.
 
