@@ -9,9 +9,9 @@
       >{{ animateHeader ? 'Выкл!' : 'Вкл!' }}</a>
     </div>
 
-    <div class="page-title" v-if="$page.title">{{ $page.title }}</div>
+    <div class="page-title" v-if="$page.title" :style="{opacity: animateHeader ? 0 : 1}">{{ $page.title }}</div>
 
-    <div v-else class="main-title">
+    <div v-else class="main-title" :style="{opacity: animateHeader ? 0 : 1}">
       <router-link to="/" class="site-title">{{ $site.title }}</router-link>
       <sup>
         <router-link to="/about" class="page-link">Что это?</router-link>
@@ -23,6 +23,7 @@
 
 <script>
 import Socials from "./Socials";
+import Vue from 'vue'
 
 export default {
   components: {
@@ -50,7 +51,6 @@ export default {
     const cancelAnimationFrame =
       window.cancelAnimationFrame || window.mozCancelAnimationFrame;
 
-    let points;
     let particles;
     let numOfParticles;
     let largeHeader = document.getElementById("large-header");
@@ -62,6 +62,7 @@ export default {
     let width;
     let height;
     let raf;
+
     // Main
     initHeader();
     addListeners();
@@ -82,6 +83,7 @@ export default {
     }
 
     function drawConnections() {
+      // !!! uncomment these in case if you have a good GPU cooler
       // ctx.globalCompositeOperation = "source-over";
       // ctx.fillStyle = "rgba(1, 1, 1, 0.2)";
       canvas.width = width;
@@ -126,15 +128,16 @@ export default {
       height = window.innerWidth / (self.$page.path === "/" ? 2 : 4);
       largeHeader.style.height = height + "px";
       largeHeader.style.width = width + "px";
+      largeHeader.style.overflow = "hidden";
 
       canvas.width = width;
       canvas.height = height;
 
       particles = [];
 
-      numOfParticles = height / 5;
+      numOfParticles = height / 5; // do we need a slider?
 
-      for (var i = 0; i < numOfParticles; i++) {
+      for (var i = 0; i < numOfParticles; i++) { 
         particles.push(new Particle());
       }
       drawConnections()
@@ -146,16 +149,15 @@ export default {
         raf = requestAnimationFrame(draw);
       }
 
-      //setInterval(draw, 3)
       raf = requestAnimationFrame(draw);
     }
 
     // Event handling
     function addListeners() {
-      window.addEventListener("scroll", scrollCheck);
-      window.addEventListener("resize", initHeader);
+      window.addEventListener("scroll", disableWhenScrolledHalf);
+      window.addEventListener("resize", initHeader); // do we need keep state?
     }
-    function scrollCheck() {
+    function disableWhenScrolledHalf() {
       self.animateHeader =
         self.animateHeader && document.documentElement.scrollTop < height / 2;
     }
@@ -165,17 +167,23 @@ export default {
 
 <style lang="stylus">
 .site-header {
+
+  .fullscreen {
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+  }
+
   position: relative;
-  width: 100%;
   background: #111;
-  overflow: hidden;
   background-size: cover;
   background-position: center center;
   z-index: 1;
-
   .animation-toggler {
     position: absolute;
-    right: 1em;
+    right: 3em;
 
     a {
       color: yellow;
@@ -205,6 +213,9 @@ export default {
     left: 50%;
     -webkit-transform: translate3d(-50%, -50%, 0);
     transform: translate3d(-50%, -50%, 0);
+    transition: opacity 2s ease-in-out 1s;
+    transition: transform 2s ease-in-out 1s;
+
   }
 
   .main-title {
@@ -219,7 +230,7 @@ export default {
     left: 50%;
     -webkit-transform: translate3d(-50%, -50%, 0);
     transform: translate3d(-50%, -50%, 0);
-
+    transition: opacity 2s ease-in-out 1s;
     sup {
       top: -2.25em;
       font-size: 0.25em;

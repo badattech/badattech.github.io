@@ -39,6 +39,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+main {
+  overflow: hidden;
+}
+
 .content-wrapper {
   padding: 2em 1em 5em;
   max-width: 50em;

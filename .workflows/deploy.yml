@@ -1,0 +1,15 @@
+name: Deploy
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  Build and Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Run Deploy.sh
+        run: |
+          npm run deploy
+      - run: echo "🍏 This job's status is ${{ job.status }}."

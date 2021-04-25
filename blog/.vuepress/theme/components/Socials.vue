@@ -2,7 +2,7 @@
   <main>
     <div class="socials">
       <SvgSprite />
-      <a v-for="{username, href, title, icon} of socials" :href="href + username" :title="title">
+      <a v-for="{username, href, title, icon} of socials" :href="href + username" :title="title" :key="icon">
         <svg class="icon">
           <use :xlink:href="`#${icon}`" />
         </svg>
