@@ -9,12 +9,9 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-    - name: Install, build, smoke, deploy
-      run: |
-        npm run deploy
-      env:
-        CI: true
-    
-    - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Install, build, smoke, deploy
+        run: |
+          npm ci
+          npm run deploy
+        env:
+          CI: true
