@@ -39,13 +39,13 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-main {
-  overflow: hidden;
-}
+  main {
+    overflow: hidden;
+  }
 
-.content-wrapper {
-  padding: 2em 1em 5em;
-  max-width: 50em;
-  margin: 0 auto;
-}
+  .content-wrapper {
+    padding: 2em 1em 5em;
+    max-width: 50em;
+    margin: 0 auto;
+  }
 </style>
