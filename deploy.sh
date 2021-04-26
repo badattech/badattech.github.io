@@ -12,6 +12,7 @@ git config --global user.email "github-actions@example.com"
 git config --global user.name "GitHubActions[Bot]"
 
 git init
+git remote set-url origin https://alterfo:$1@github.com/alterfo/github.io.git
 git add -A
 git commit -m 'deploy'
 
