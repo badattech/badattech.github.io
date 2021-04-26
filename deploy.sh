@@ -18,6 +18,6 @@ git remote add origin https://alterfo:$1@github.com/alterfo/alterfo.github.io.gi
 git add -A
 git commit -m 'deploy'
 
-git push -f https://github.com/alterfo/alterfo.github.io.git master
+git push -f master
 
 cd -
