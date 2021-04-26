@@ -4,6 +4,7 @@
 set -e
 
 # build
+npm i -g vuepress
 npm run build
 
 # navigate into the build output directory
