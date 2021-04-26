@@ -8,6 +8,9 @@ npm run build
 
 # navigate into the build output directory
 cd blog/.vuepress/dist
+git config --global user.email "github-actions@example.com"
+git config --global user.name "GitHubActions[Bot]"
+
 git init
 git add -A
 git commit -m 'deploy'
