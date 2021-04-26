@@ -25,5 +25,3 @@ jobs:
         SUPER_SECRET: ${{ secrets.deploy }}
       run: |
         sh ./deploy.sh "$SUPER_SECRET"
-    - run: npm ci
-    - run: npm run deploy --if-present
